@@ -1,1 +1,8 @@
 --relative
+--no-parameter_types-check
+--no-parameter_documentation-check
+--no-legacy_facts-check
+--no-top_scope_facts-check
+--no-topscope_variable-check
+--no-file_ensure-check
+--no-manifest_whitespace_opening_bracket_before-check

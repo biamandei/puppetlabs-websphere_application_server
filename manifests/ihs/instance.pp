@@ -119,7 +119,6 @@ define websphere_application_server::ihs::instance (
   $admin_username            = 'httpadmin',
   $admin_password            = 'password',
 ) {
-
   File {
     owner => $user,
     group => $group,
@@ -242,5 +241,4 @@ define websphere_application_server::ihs::instance (
     provider  => 'base',
     subscribe => File["ihs_adminconf_${title}"],
   }
-
 }

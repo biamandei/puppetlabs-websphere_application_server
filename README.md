@@ -3,6 +3,7 @@
 #### Table of Contents
 
 1. [Module Description - What the module does and why it is useful](#description)
+2. [Support](#support)
 2. [Setup - The basics of getting started with websphere_application_server](#setup)
     * [Beginning with websphere_application_server](#beginning-with-websphere_application_server)
 3. [Usage - Configuration options and additional functionality](#usage)
@@ -27,6 +28,13 @@ Manages the deployment and configuration of [IBM WebSphere Application Server](h
 * Deployment Managers (DMGR)
 * Application Servers
 * IHS Servers
+
+## Support
+
+This module is not supported or maintained by Puppet and does not qualify for Puppet Support plans.
+It's provided without guarantee or warranty and you can use it at your own risk.
+All bugfixes, updates, and new feature development will come from community contributions.
+[tier:community]
 
 ## Setup
 

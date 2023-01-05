@@ -40,7 +40,6 @@ define websphere_application_server::cluster (
   $wsadmin_pass     = undef,
   $dmgr_host        = $::fqdn,
 ) {
-
   websphere_cluster { $cluster:
     ensure       => $ensure,
     profile_base => $profile_base,
@@ -51,7 +50,6 @@ define websphere_application_server::cluster (
   }
 
   if $collect_members {
-
     ## Collect any or our exported defined types
     Websphere_application_server::Cluster::Member <<| cell == $cell and dmgr_host == $dmgr_host |>> {
       profile_base => $profile_base,

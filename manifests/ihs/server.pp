@@ -157,7 +157,6 @@ define websphere_application_server::ihs::server (
   $propagate_keyring       = true,
   $dmgr_host               = undef,
 ) {
-
   Exec {
     path => '/bin:/sbin:/usr/bin:/usr/sbin',
   }
@@ -225,7 +224,7 @@ define websphere_application_server::ihs::server (
 
   exec { 'refresh_ld_cache':
     command     => 'ldconfig',
-    path        => [ '/sbin/' ],
+    path        => ['/sbin/'],
     refreshonly => true,
     subscribe   => File_line['Adding shared library paths'],
   }
@@ -262,7 +261,6 @@ define websphere_application_server::ihs::server (
 
   # Exporting for a DMGR to collect.
   if $export_node {
-
     if $node_os {
       $_node_os = $node_os
     } else {

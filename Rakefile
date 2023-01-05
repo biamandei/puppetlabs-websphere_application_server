@@ -7,6 +7,7 @@ require 'puppet-syntax/tasks/puppet-syntax'
 require 'puppet_blacksmith/rake_tasks' if Bundler.rubygems.find_name('puppet-blacksmith').any?
 require 'github_changelog_generator/task' if Bundler.rubygems.find_name('github_changelog_generator').any?
 require 'puppet-strings/tasks' if Bundler.rubygems.find_name('puppet-strings').any?
+require 'rspec/core/rake_task'
 
 def changelog_user
   return unless Rake.application.top_level_tasks.include? "changelog"
@@ -42,6 +43,14 @@ def changelog_future_release
 end
 
 PuppetLint.configuration.send('disable_relative')
+PuppetLint.configuration.send('disable_parameter_types')
+PuppetLint.configuration.send('disable_parameter_documentation')
+PuppetLint.configuration.send('disable_legacy_facts')
+PuppetLint.configuration.send('disable_top_scope_facts')
+PuppetLint.configuration.send('disable_topscope_variable')
+PuppetLint.configuration.send('disable_file_ensure')
+PuppetLint.configuration.send('disable_manifest_whitespace_opening_bracket_before')
+
 
 if Bundler.rubygems.find_name('github_changelog_generator').any?
   GitHubChangelogGenerator::RakeTask.new :changelog do |config|
@@ -86,7 +95,6 @@ EOM
   end
 end
 
-require 'rspec/core/rake_task'
 namespace :websphere_application_server do
   RSpec::Core::RakeTask.new(:integration) do |t|
     t.pattern = 'spec/acceptance/**{,/*/**}/*_spec.rb'

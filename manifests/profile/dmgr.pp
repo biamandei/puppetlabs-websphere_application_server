@@ -66,7 +66,6 @@ define websphere_application_server::profile::dmgr (
   $wsadmin_user            = undef,
   $wsadmin_pass            = undef,
 ) {
-
   validate_absolute_path($instance_base)
   validate_string($cell, $node_name, $profile_name, $user, $group, $dmgr_host)
 
@@ -106,7 +105,7 @@ define websphere_application_server::profile::dmgr (
     cwd     => "${instance_base}/bin",
     user    => $user,
     timeout => 900,
-    returns => [0, 2]
+    returns => [0, 2],
   }
 
   # Ensure ownership of profile directory is correct
@@ -194,5 +193,4 @@ define websphere_application_server::profile::dmgr (
       wsadmin_pass => $wsadmin_pass,
     }
   }
-
 }

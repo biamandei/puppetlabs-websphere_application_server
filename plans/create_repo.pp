@@ -128,7 +128,6 @@ plan websphere_application_server::create_repo (
   Optional[String[1]] $pucl                     = '/opt/IBM/PackagingUtility/PUCL',
 
 ) {
-
   ##############################################################################################################
   ## Upload IBM Package Utility Zipfile to Remote Host
   ##########
@@ -138,7 +137,7 @@ plan websphere_application_server::create_repo (
       [ ! -d '${remote_install_dir}' ] && mkdir -p \\\"${remote_install_dir}\\\";
       echo \\\"\\\"
       \"",
-      $targets, 'Ensuring Installation Directory Exists','_run_as' => 'root')
+    $targets, 'Ensuring Installation Directory Exists','_run_as' => 'root')
 
     ## Check local and remote MD5 (to avoid download and save time if it's already the same file)
     if file::exists($package_utility_zipfile) {
@@ -147,7 +146,7 @@ plan websphere_application_server::create_repo (
           ${openssl_local} md5 -r \\\"${package_utility_zipfile}\\\" | ${awk_local} '{print \\\$1}';
         fi
         \"",
-        'localhost','Checking MD5SUM for Local File')
+      'localhost','Checking MD5SUM for Local File')
 
       $local_md5=$local_file_check.first.to_data['result']['stdout']
 
@@ -156,7 +155,7 @@ plan websphere_application_server::create_repo (
           ${openssl_remote} md5 -r \\\"${remote_install_dir}/${remote_ibm_pu_zipfile}\\\" | ${awk_remote} '{print \\\$1}';
         fi
         \"",
-        $targets,'Checking MD5SUM for Remote File (if it exists)','_run_as' => 'root')
+      $targets,'Checking MD5SUM for Remote File (if it exists)','_run_as' => 'root')
 
       $remote_md5=$remote_file_check.first.to_data['result']['stdout']
 
@@ -176,8 +175,8 @@ plan websphere_application_server::create_repo (
       }
     }
     else {
-      fail_plan("IBM Package Utility either was not specified or does not exist at provided location.\n
-        Specified 'package_utility_zipfile': '${package_utility_zipfile}'")
+    fail_plan("IBM Package Utility either was not specified or does not exist at provided location.\n
+      Specified 'package_utility_zipfile': '${package_utility_zipfile}'")
     }
   }
 
@@ -187,7 +186,7 @@ plan websphere_application_server::create_repo (
   if $stage_unzip_ibm_pu {
     ## Unzip the package utility files, with overwrite
     run_command("${shell_remote} -c \"cd \\\"${remote_install_dir}\\\"; ${unzip_remote} -o \\\"${remote_ibm_pu_zipfile}\\\" > /dev/null\"",
-      $targets, 'Unzipping IBM Package Utility', '_run_as' => 'root')
+    $targets, 'Unzipping IBM Package Utility', '_run_as' => 'root')
   }
 
   ##############################################################################################################
@@ -220,16 +219,14 @@ plan websphere_application_server::create_repo (
         -userPassword ${ibm_id_password} \
         -secureStorageFile ${credential_file} \
         -masterPasswordFile ${main_password_file}; \"",
-      $targets, "Securely save IBM ID Credentials to ${credential_file}", '_run_as' => 'root')
+    $targets, "Securely save IBM ID Credentials to ${credential_file}", '_run_as' => 'root')
   }
-
 
   ##############################################################################################################
   ## List available packages in selected repository
   ## IBM Documentation: https://www.ibm.com/support/knowledgecenter/en/SSDV2W_1.8.5/com.ibm.cic.commandline.doc/topics/t_pucl_viewing_available_packages.html
   ##########
   if $stage_list_packages {
-
     if $long_listing_format {
       $packages_result=run_command("${shell_remote} -c \"${pucl} listAvailablePackages \
           -repositories ${was_repo} \

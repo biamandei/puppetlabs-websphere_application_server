@@ -118,7 +118,6 @@ define websphere_application_server::cluster::member (
   $manage_service                   = true,
   $dmgr_host                        = undef,
 ) {
-
   if !$dmgr_profile or !$cluster {
     fail('dmgr_profile and cluster is required')
   }
@@ -130,30 +129,30 @@ define websphere_application_server::cluster::member (
   validate_string($cell)
   validate_string($user)
 
-  if $runas_user                       { validate_string($runas_user) }
-  if $runas_group                      { validate_string($runas_group) }
-  if $client_inactivity_timeout        { validate_string($client_inactivity_timeout) }
-  if $gen_unique_ports                 { validate_bool($gen_unique_ports) }
-  if $jvm_maximum_heap_size            { validate_string($jvm_maximum_heap_size) }
-  if $jvm_verbose_mode_class           { validate_bool($jvm_verbose_mode_class) }
-  if $jvm_verbose_garbage_collection   { validate_bool($jvm_verbose_garbage_collection) }
-  if $jvm_verbose_mode_jni             { validate_bool($jvm_verbose_mode_jni) }
-  if $jvm_initial_heap_size            { validate_string($jvm_initial_heap_size) }
-  if $jvm_run_hprof                    { validate_bool($jvm_run_hprof) }
-  if $jvm_hprof_arguments              { validate_string($jvm_hprof_arguments) }
-  if $jvm_debug_mode                   { validate_bool($jvm_debug_mode) }
-  if $jvm_debug_args                   { validate_string($jvm_debug_args) }
-  if $jvm_executable_jar_filename      { validate_string($jvm_executable_jar_filename) }
-  if $jvm_generic_jvm_arguments        { validate_string($jvm_generic_jvm_arguments) }
-  if $jvm_disable_jit                  { validate_string($jvm_disable_jit) }
-  if $replicator_entry                 { validate_string($replicator_entry) }
-  if $total_transaction_timeout        { validate_string($total_transaction_timeout) }
+  if $runas_user { validate_string($runas_user) }
+  if $runas_group { validate_string($runas_group) }
+  if $client_inactivity_timeout { validate_string($client_inactivity_timeout) }
+  if $gen_unique_ports { validate_bool($gen_unique_ports) }
+  if $jvm_maximum_heap_size { validate_string($jvm_maximum_heap_size) }
+  if $jvm_verbose_mode_class { validate_bool($jvm_verbose_mode_class) }
+  if $jvm_verbose_garbage_collection { validate_bool($jvm_verbose_garbage_collection) }
+  if $jvm_verbose_mode_jni { validate_bool($jvm_verbose_mode_jni) }
+  if $jvm_initial_heap_size { validate_string($jvm_initial_heap_size) }
+  if $jvm_run_hprof { validate_bool($jvm_run_hprof) }
+  if $jvm_hprof_arguments { validate_string($jvm_hprof_arguments) }
+  if $jvm_debug_mode { validate_bool($jvm_debug_mode) }
+  if $jvm_debug_args { validate_string($jvm_debug_args) }
+  if $jvm_executable_jar_filename { validate_string($jvm_executable_jar_filename) }
+  if $jvm_generic_jvm_arguments { validate_string($jvm_generic_jvm_arguments) }
+  if $jvm_disable_jit { validate_string($jvm_disable_jit) }
+  if $replicator_entry { validate_string($replicator_entry) }
+  if $total_transaction_timeout { validate_string($total_transaction_timeout) }
   if $threadpool_webcontainer_min_size { validate_string($threadpool_webcontainer_min_size) }
   if $threadpool_webcontainer_max_size { validate_string($threadpool_webcontainer_max_size) }
-  if $umask                            { validate_string($umask) }
-  if $wsadmin_user                     { validate_string($wsadmin_user) }
-  if $wsadmin_pass                     { validate_string($wsadmin_pass) }
-  if $weight                           { validate_string($weight) }
+  if $umask { validate_string($umask) }
+  if $wsadmin_user { validate_string($wsadmin_user) }
+  if $wsadmin_pass { validate_string($wsadmin_pass) }
+  if $weight { validate_string($weight) }
 
   websphere_cluster_member { $cluster_member_name:
     ensure                           => $ensure,

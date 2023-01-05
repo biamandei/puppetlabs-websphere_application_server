@@ -75,7 +75,6 @@ define websphere_application_server::instance (
   $group                     = $::websphere_application_server::group,
   $user_home                 = undef,
 ) {
-
   if $version =~ /^9.*/ and !$jdk_package_name {
     fail('When installing WebSphere AppServer 9, you must specify a JDK')
   }
@@ -124,7 +123,7 @@ define websphere_application_server::instance (
     validate_absolute_path($response_file)
   } else {
     if !$package or !$version or !$repository or !$target {
-      fail('package_name, package_version, target and repository are required
+    fail('package_name, package_version, target and repository are required
       when a response file is not provided.')
     }
 
@@ -136,7 +135,6 @@ define websphere_application_server::instance (
       validate_absolute_path($imcl_path)
     }
   }
-
 
   # We want a sanitized instance name derived from the title that we can use
   # in various places that need only alpha-numeric.
@@ -189,5 +187,4 @@ define websphere_application_server::instance (
     content => template("${module_name}/facts/was_instance.yaml.erb"),
     require => Ibm_pkg[$title],
   }
-
 }

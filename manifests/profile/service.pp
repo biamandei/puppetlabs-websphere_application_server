@@ -69,7 +69,6 @@ define websphere_application_server::profile::service (
   $wsadmin_user = undef,
   $wsadmin_pass = undef,
 ) {
-
   ## Really, we can create more profile types than this, but this is all we
   ## support right now.
   validate_re($type, '(dmgr|app|appserver|node)')
@@ -78,9 +77,9 @@ define websphere_application_server::profile::service (
   validate_string($user)
   validate_re($ensure, '(running|stopped)')
 
-  if $start   { validate_string($start) }
-  if $stop    { validate_string($stop) }
-  if $status  { validate_string($status) }
+  if $start { validate_string($start) }
+  if $stop { validate_string($stop) }
+  if $status { validate_string($status) }
   if $restart { validate_string($restart) }
 
   if $wsadmin_user and $wsadmin_pass {
@@ -133,5 +132,4 @@ define websphere_application_server::profile::service (
     restart  => $_restart,
     provider => 'base',
   }
-
 }
