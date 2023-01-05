@@ -32,6 +32,7 @@ define websphere_application_server::ownership (
   $group,
   $path = $title,
 ) {
+
   validate_string($user)
   validate_string($group)
   validate_absolute_path($path)
@@ -39,7 +40,7 @@ define websphere_application_server::ownership (
   exec { "Ownership_${title}":
     command => "chown -R ${user}:${group} ${path}",
     unless  => "find ${path} ! -type l \\( ! -user ${user} -type f \\) -o \\( ! -group ${group} \\) -a \\( -type f \\)| wc -l | awk '{print \$1}' | grep -qE '^0'",
-    path    => ['/bin', '/usr/bin'],
-    returns => [0, 2],
+    path    => [ '/bin', '/usr/bin' ],
+    returns => [0, 2]
   }
 }

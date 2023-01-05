@@ -67,6 +67,7 @@ define websphere_application_server::profile::appserver (
   $wsadmin_user      = undef,
   $wsadmin_pass      = undef,
 ) {
+
   validate_absolute_path($instance_base)
   validate_absolute_path($profile_base)
   validate_string($cell)

@@ -14,15 +14,15 @@ class profile::websphere::base { # lint:ignore:autoloader_layout
 
   # Organizational log locations
   file { [
-      '/opt/log',
-      '/opt/log/websphere',
-      '/opt/log/websphere/appserverlogs',
-      '/opt/log/websphere/applogs',
-      '/opt/log/websphere/wasmgmtlogs',
-    ]:
-      ensure => 'directory',
-      owner  => 'webadmin',
-      group  => 'webadmins',
+    '/opt/log',
+    '/opt/log/websphere',
+    '/opt/log/websphere/appserverlogs',
+    '/opt/log/websphere/applogs',
+    '/opt/log/websphere/wasmgmtlogs',
+  ]:
+    ensure => 'directory',
+    owner  => 'webadmin',
+    group  => 'webadmins',
   }
 
   # Base stuff for WebSphere.  Specify a common user/group and the base

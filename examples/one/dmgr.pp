@@ -81,4 +81,5 @@ class profile::websphere::dmgr { # lint:ignore:autoloader_layout
     user         => $user,
     require      => Websphere::Profile::Dmgr[$dmgr_profile],
   }
+
 }

@@ -21,6 +21,7 @@ class websphere_profile::ihs { # lint:ignore:autoloader_layout
   $java7_package    = 'com.ibm.websphere.IBMJAVA.v71'
   $java7_version    = '7.1.2000.20141116_0823'
 
+
   ## WAS IHS instance
   websphere_application_server::ihs::instance { 'HTTPServer85':
     target          => $instance_base,
@@ -60,4 +61,5 @@ class websphere_profile::ihs { # lint:ignore:autoloader_layout
     listen_port  => '10080',
     require      => Ibm_pkg['Plugins'],
   }
+
 }

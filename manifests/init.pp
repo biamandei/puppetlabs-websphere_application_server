@@ -21,6 +21,7 @@ class websphere_application_server (
   $manage_user  = true,
   $manage_group = true,
 ) {
+
   validate_string($user, $group)
   validate_absolute_path($base_dir, $user_home)
   validate_bool($manage_user, $manage_group)
@@ -80,4 +81,5 @@ class websphere_application_server (
     order   => '01',
     content => "---\nwebsphere_base_dir: ${base_dir}\n",
   }
+
 }

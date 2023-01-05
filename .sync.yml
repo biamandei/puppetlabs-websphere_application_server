@@ -49,12 +49,3 @@ spec/spec_helper.rb:
   unmanaged: true
 .travis.yml:
   delete: true
-Rakefile:
-  extra_disabled_lint_checks:
-    - parameter_types
-    - parameter_documentation
-    - legacy_facts
-    - top_scope_facts
-    - topscope_variable
-    - file_ensure
-    - manifest_whitespace_opening_bracket_before

@@ -189,4 +189,5 @@ class profile::websphere_application_server::appserver { # lint:ignore:autoloade
     err_rollover_period => '24',
     require             => Websphere_application_server::Profile::Appserver['PROFILE_APP_001'],
   }
+
 }
