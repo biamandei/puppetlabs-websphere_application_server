@@ -28,8 +28,6 @@ Puppet::Type.type(:websphere_group).provide(:wsadmin, parent: Puppet::Provider::
   def scope(what)
     # (cells/CELL_01/nodes/appNode01/servers/AppServer01
     base_dir = "#{resource[:profile_base]}/#{resource[:dmgr_profile]}"
-    query = "/Cell:#{resource[:cell]}"
-    mod   = "cells/#{resource[:cell]}"
     file = base_dir + "/config/cells/#{resource[:cell]}/fileRegistry.xml"
     role = base_dir + "/config/cells/#{resource[:cell]}/admin-authz.xml"
     audit = base_dir + "/config/cells/#{resource[:cell]}/audit-authz.xml"
@@ -238,8 +236,11 @@ Puppet::Type.type(:websphere_group).provide(:wsadmin, parent: Puppet::Provider::
       # We'll need to look each of them up - to find out what they are called.
       # I suppose we could risk it and hardcode the role_id -> role_name mappings
       # but I'm not sure how immutable those mappings are.
-      role_id_array = XPath.match(admin_doc, "/rolebasedauthz:AuthorizationTableExt[@context='domain']/authorizations/groups[@name='#{resource[:groupid]}']/ancestor::/@role")
-      audit_id_array = XPath.match(audit_doc, "/rolebasedauthz:AuthorizationTableExt[@context='domain']/authorizations/groups[@name='#{resource[:groupid]}']/ancestor::/@role")
+      # /rolebasedauthz:AuthorizationTableExt[@context='domain']/authorizations/groups[@name='#{member}']/parent::*/@role
+      role_id_array = XPath.match(admin_doc, "/rolebasedauthz:AuthorizationTableExt[@context='domain']/authorizations/groups[@name='#{resource[:groupid]}']/parent::*/@role")
+      audit_id_array = XPath.match(audit_doc, "/rolebasedauthz:AuthorizationTableExt[@context='domain']/authorizations/groups[@name='#{resource[:groupid]}']/parent::*/@role")
+
+      debug "role_id_array = #{role_id_array}"
 
       # Extract the mapping from the role_id to the real role_name
       # These entries look something similar to this:
@@ -249,6 +250,7 @@ Puppet::Type.type(:websphere_group).provide(:wsadmin, parent: Puppet::Provider::
       role_id_array.each do |role_id|
         role_name = XPath.first(admin_doc, "/rolebasedauthz:AuthorizationTableExt[@context='domain']/roles[@xmi:id='#{role_id}']/@roleName").value
         @old_roles_list.push(role_name.to_sym) unless role_name.nil?
+        debug "role_id = #{role_id} and role_name = #{role_name}"
       end
 
       audit_id_array.each do |audit_id|
