@@ -238,8 +238,10 @@ Puppet::Type.type(:websphere_group).provide(:wsadmin, parent: Puppet::Provider::
       # We'll need to look each of them up - to find out what they are called.
       # I suppose we could risk it and hardcode the role_id -> role_name mappings
       # but I'm not sure how immutable those mappings are.
-      role_id_array = XPath.match(admin_doc, "/rolebasedauthz:AuthorizationTableExt[@context='domain']/authorizations/groups[@name='#{resource[:groupid]}']/ancestor::/@role")
-      audit_id_array = XPath.match(audit_doc, "/rolebasedauthz:AuthorizationTableExt[@context='domain']/authorizations/groups[@name='#{resource[:groupid]}']/ancestor::/@role")
+      # Also - when you talk about a parent - you gotta specify something to match - hence the *
+      #        This used to work in older versions of Ruby - but broke from 2.7.x onwards.
+      role_id_array = XPath.match(admin_doc, "/rolebasedauthz:AuthorizationTableExt[@context='domain']/authorizations/groups[@name='#{resource[:groupid]}']/parent::*/@role")
+      audit_id_array = XPath.match(audit_doc, "/rolebasedauthz:AuthorizationTableExt[@context='domain']/authorizations/groups[@name='#{resource[:groupid]}']/parent::*/@role")
 
       # Extract the mapping from the role_id to the real role_name
       # These entries look something similar to this:
